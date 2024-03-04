@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "CommonJS",
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "types": ["node", "jest"],
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src"],
+  "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"] // incase unit tests
+}
