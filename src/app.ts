@@ -1,4 +1,5 @@
-import express, { Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
+import 'express-async-errors';
 import helmet from 'helmet';
 import PinoHttp from 'pino-http';
 import { ErrorResponseObject, SuccessResponseObject, logger } from './common';
@@ -13,10 +14,14 @@ app.use(PinoHttp({ logger }));
 
 app.use('/v1/echo', echoRouter);
 
-app.get('/', (_, res: Response) => res.json(new SuccessResponseObject('boilerplate!')));
-// default catch all handler
+app.get('/', (_, res: Response) => res.json(new SuccessResponseObject('boilerplate!', null)));
 app.all('*', (_, res: Response): void => {
   res.status(404).json(new ErrorResponseObject('route not defined'));
+});
+
+app.use((err: Error, _req: Request, res: Response, _next: NextFunction): void => {
+  logger.fatal(err);
+  res.status(500).json(new ErrorResponseObject('Something went wrong, please try later'));
 });
 
 export default app;

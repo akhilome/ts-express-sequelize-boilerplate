@@ -1,27 +1,36 @@
-type Data = null | Record<string, unknown> | Record<string, unknown>[];
+interface Error {
+  message: string;
+  field?: string;
+}
 
-abstract class BaseResponseObject {
+interface ResponseObject<T = unknown> {
+  success: boolean;
+  message: string;
+  data?: T;
+  errors?: Error[];
+}
+
+abstract class BaseResponseObject implements ResponseObject {
   constructor(
     public success: boolean,
     public message: string,
-    public data: Data = null,
   ) {}
 }
 
-export class SuccessResponseObject extends BaseResponseObject {
+export class SuccessResponseObject<T = unknown> extends BaseResponseObject {
   constructor(
-    public message: string,
-    public data: Data = null,
+    message: string,
+    public data: T,
   ) {
-    super(true, message, data);
+    super(true, message);
   }
 }
 
 export class ErrorResponseObject extends BaseResponseObject {
   constructor(
     public message: string,
-    public data: Data = null,
+    public errors: Error[] = [],
   ) {
-    super(false, message, data);
+    super(false, message);
   }
 }

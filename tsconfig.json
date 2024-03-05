@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "ES6",
     "module": "CommonJS",
     "outDir": "dist",
     "rootDir": "src",
@@ -11,7 +11,9 @@
     "types": ["node", "jest"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["src"],
   "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"] // incase unit tests
